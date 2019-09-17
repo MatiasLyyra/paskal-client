@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent, KeyboardEvent } from "react";
 import "./CodeField.scss";
 
 export type IProps = {};
@@ -19,27 +19,51 @@ export class CodeField extends React.Component<IProps, IState> {
     return (
       <div>
         <div
-          ref="rawCode"
+          id="rawCode"
           contentEditable={true}
           className="CodeField-code"
           onInput={this.updateCode.bind(this)}
+          onKeyDown={this.indentIfTab.bind(this)}
         ></div>
-        <textarea
-          className="CodeField-Code"
-          readOnly
-          value={this.state.code}
-        ></textarea>
       </div>
     );
   }
-  updateCode() {
-    const eventElemnt = this.refs.rawCode as HTMLElement;
+  updateCode(event: FormEvent<HTMLElement>) {
+    const element = event.target as HTMLElement;
     this.setState({
-      code: this.removeHtmlTags(eventElemnt.innerHTML)
+      code: this.removeHtmlTags(element.innerHTML)
     });
   }
   removeHtmlTags(code: string): string {
-    return code.replace(/<\/?div>/g, "\n").replace(/<br>/g, "");
+    return code
+      .replace(/&nbsp;/g, "\n")
+      .replace(/<div><br><\/div >/g, "\n")
+      .replace(/<div>/g, "\n")
+      .replace(/<\/div>/g, "")
+      .replace(/<br>/g, "");
+  }
+  indentIfTab(event: KeyboardEvent<HTMLDivElement>) {
+    // keyCode 9 is tab
+    const targetElement = event.target as HTMLElement;
+    let needsUpdate = false;
+    if (event.keyCode === 9) {
+      event.preventDefault();
+      const selection = document.getSelection();
+      if (!selection || !selection.focusNode) {
+        return;
+      }
+      if (selection.focusNode.nodeType !== Node.TEXT_NODE) {
+        const selectionDiv = selection.focusNode as HTMLDivElement;
+        selectionDiv.innerHTML = "&nbsp;&nbsp;";
+        selection.collapse(selectionDiv, 1);
+        needsUpdate = true;
+      }
+    }
+    if (needsUpdate) {
+      this.setState({
+        code: this.removeHtmlTags(targetElement.innerHTML)
+      });
+    }
   }
 }
 
