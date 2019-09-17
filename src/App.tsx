@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.scss";
+import CodeField from "./components/CodeField";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <h1 className="h1 center">Paskal compiler</h1>
+      <p>
+        Fork{" "}
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
+          href="https://github.com/MatiasLyyra/paskal"
         >
-          Learn React
-        </a>
-      </header>
+          me
+        </a>{" "}
+        on github
+      </p>
+      <CodeField />
     </div>
   );
-}
+};
 
 export default App;

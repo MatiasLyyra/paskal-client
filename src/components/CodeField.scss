@@ -1,0 +1,11 @@
+@import "src/assets/color";
+
+.CodeField-code {
+  font-size: 3rem;
+  width: calc(100% - 1rem);
+  min-height: 10rem;
+  background-color: $black;
+  border: 2px solid $dark-green;
+  color: $terminal-green;
+  padding: 0.5rem;
+}

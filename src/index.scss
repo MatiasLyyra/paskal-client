@@ -1,0 +1,31 @@
+@import "src/assets/color";
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
+body {
+  background-color: $black;
+  color: $dark-green;
+  font-family: 'VT323', monospace;
+  font-size: 3rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.h1 {
+  font-weight: normal;
+  font-size: calc(5.5rem);
+  text-decoration: underline;
+}
+
+.h2 {
+  font-weight: normal;
+  font-size: 4rem;
+  text-decoration: underline;
+}
+
+.h3 {
+  font-weight: normal;
+  font-size: 3rem;
+  text-decoration: underline;
+}
