@@ -18,20 +18,20 @@ export class CodeField extends React.Component<IProps, IState> {
   render() {
     return (
       <div>
-        <div
+        <textarea
           id="rawCode"
-          contentEditable={true}
-          className="CodeField-code"
-          onInput={this.updateCode.bind(this)}
+          className="CodeField-code terminal-font"
+          onChange={this.updateCode.bind(this)}
           onKeyDown={this.indentIfTab.bind(this)}
-        ></div>
+          value={this.state.code}
+        ></textarea>
       </div>
     );
   }
-  updateCode(event: FormEvent<HTMLElement>) {
-    const element = event.target as HTMLElement;
+  updateCode(event: FormEvent<HTMLTextAreaElement>) {
+    const element = event.target as HTMLTextAreaElement;
     this.setState({
-      code: this.removeHtmlTags(element.innerHTML)
+      code: element.value
     });
   }
   removeHtmlTags(code: string): string {
@@ -42,27 +42,26 @@ export class CodeField extends React.Component<IProps, IState> {
       .replace(/<\/div>/g, "")
       .replace(/<br>/g, "");
   }
-  indentIfTab(event: KeyboardEvent<HTMLDivElement>) {
+  indentIfTab(event: KeyboardEvent<HTMLTextAreaElement>) {
     // keyCode 9 is tab
-    const targetElement = event.target as HTMLElement;
-    let needsUpdate = false;
+    const targetElement = event.target as HTMLTextAreaElement;
+    const selectionStart = targetElement.selectionStart;
     if (event.keyCode === 9) {
       event.preventDefault();
       const selection = document.getSelection();
       if (!selection || !selection.focusNode) {
         return;
       }
-      if (selection.focusNode.nodeType !== Node.TEXT_NODE) {
-        const selectionDiv = selection.focusNode as HTMLDivElement;
-        selectionDiv.innerHTML = "&nbsp;&nbsp;";
-        selection.collapse(selectionDiv, 1);
-        needsUpdate = true;
-      }
-    }
-    if (needsUpdate) {
+      const code = targetElement.value.split("");
+      const firstHalf = code.splice(0, selectionStart);
+      firstHalf.push("  ");
+      const updatedCode = [...firstHalf, ...code].join("");
       this.setState({
-        code: this.removeHtmlTags(targetElement.innerHTML)
-      });
+        code: updatedCode,
+        rawCode: updatedCode,
+      })
+      targetElement.focus();
+      requestAnimationFrame(() => targetElement.setSelectionRange(selectionStart + 2, selectionStart+2));
     }
   }
 }
