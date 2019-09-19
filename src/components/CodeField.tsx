@@ -1,10 +1,14 @@
-import React, { FormEvent, KeyboardEvent } from "react";
+import React, { KeyboardEvent } from "react";
+import { indentText } from "../util/codeUtil";
+import LineCount from "./LineCount";
 import "./CodeField.scss";
 
-export type IProps = {};
+export type IProps = {
+  indentation: number;
+};
 export interface IState {
   code: string;
-  rawCode: string;
+  rows: number;
 }
 
 export class CodeField extends React.Component<IProps, IState> {
@@ -12,56 +16,59 @@ export class CodeField extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       code: "",
-      rawCode: ""
+      rows: 5
     };
   }
   render() {
     return (
-      <div>
+      <div className="CodeField">
+        <div className="CodeField-LineCount terminal-font">
+          <LineCount lines={this.calcRows(this.state.code)} />
+        </div>
         <textarea
           id="rawCode"
           className="CodeField-code terminal-font"
-          onChange={this.updateCode.bind(this)}
+          onChange={e => this.setState({ code: e.target.value })}
           onKeyDown={this.indentIfTab.bind(this)}
+          rows={Math.max(this.calcRows(this.state.code), 5)}
           value={this.state.code}
+          autoCapitalize="false"
+          autoComplete="false"
+          autoCorrect="false"
+          spellCheck={false}
         ></textarea>
       </div>
     );
   }
-  updateCode(event: FormEvent<HTMLTextAreaElement>) {
-    const element = event.target as HTMLTextAreaElement;
-    this.setState({
-      code: element.value
-    });
-  }
-  removeHtmlTags(code: string): string {
-    return code
-      .replace(/&nbsp;/g, "\n")
-      .replace(/<div><br><\/div >/g, "\n")
-      .replace(/<div>/g, "\n")
-      .replace(/<\/div>/g, "")
-      .replace(/<br>/g, "");
+
+  calcRows(text: string): number {
+    return text.split("").filter(c => c === "\n").length + 1;
   }
   indentIfTab(event: KeyboardEvent<HTMLTextAreaElement>) {
     // keyCode 9 is tab
     const targetElement = event.target as HTMLTextAreaElement;
     const selectionStart = targetElement.selectionStart;
+    let identation = this.props.indentation;
     if (event.keyCode === 9) {
       event.preventDefault();
-      const selection = document.getSelection();
-      if (!selection || !selection.focusNode) {
-        return;
+      if (event.getModifierState("Shift")) {
+        identation = -identation;
       }
-      const code = targetElement.value.split("");
-      const firstHalf = code.splice(0, selectionStart);
-      firstHalf.push("  ");
-      const updatedCode = [...firstHalf, ...code].join("");
+      console.log(identation);
+      let [updatedCode, spacesAdded] = indentText(
+        this.state.code,
+        selectionStart,
+        identation
+      );
       this.setState({
-        code: updatedCode,
-        rawCode: updatedCode,
-      })
-      targetElement.focus();
-      requestAnimationFrame(() => targetElement.setSelectionRange(selectionStart + 2, selectionStart+2));
+        code: updatedCode
+      });
+      requestAnimationFrame(() =>
+        targetElement.setSelectionRange(
+          selectionStart + spacesAdded,
+          selectionStart + spacesAdded
+        )
+      );
     }
   }
 }

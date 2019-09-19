@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeField text area updates code 1`] = `
+<div
+  className="CodeField"
+>
+  <div
+    className="CodeField-LineCount terminal-font"
+  >
+    <LineCount
+      lines={2}
+    />
+  </div>
+  <textarea
+    autoCapitalize="false"
+    autoComplete="false"
+    autoCorrect="false"
+    className="CodeField-code terminal-font"
+    id="rawCode"
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    rows={5}
+    spellCheck={false}
+    value="foobar
+123"
+  />
+</div>
+`;

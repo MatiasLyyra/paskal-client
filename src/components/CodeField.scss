@@ -1,11 +1,27 @@
 @import "src/assets/color";
 
+.CodeField {
+  display: flex;
+  border: 2px solid $terminal-green;
+}
+
 .CodeField-code {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  resize: none;
+  border-left: 2px $terminal-green solid;
+
   font-size: 3rem;
   width: calc(100% - 1rem);
-  min-height: 10rem;
   background-color: $black;
-  border: 2px solid $dark-green;
   color: $terminal-green;
-  padding: 0.5rem;
+  padding: 1rem;
+  overflow: hidden;
+  flex: 1 1 95%;
+}
+
+.CodeField-LineCount {
+  flex: 1 1 5%;
+  padding: 1rem;
 }

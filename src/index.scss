@@ -1,11 +1,16 @@
 @import "src/assets/color";
+// @import "~tachyons";
 @import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
 
 body {
   background-color: $black;
-  color: $dark-green;
+  color: $terminal-green;
   font-family: 'VT323', monospace;
   font-size: 3rem;
+}
+
+.mb-0 {
+  margin-bottom: 0;
 }
 
 .terminal-font {

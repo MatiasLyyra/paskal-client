@@ -17,7 +17,8 @@ const App: React.FC = () => {
         </a>{" "}
         on github
       </p>
-      <CodeField />
+      <h2 className="h2 mb-0">Editor:</h2>
+      <CodeField indentation={2} />
     </div>
   );
 };
