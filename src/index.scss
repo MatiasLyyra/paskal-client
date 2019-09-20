@@ -18,6 +18,14 @@ body {
   font-size: 3rem;
 }
 
+.error {
+  color: $amber;
+}
+
+.terminal-green {
+  color: $terminal-green;
+}
+
 .center {
   text-align: center;
 }

@@ -48,13 +48,12 @@ export class CodeField extends React.PureComponent<IProps> {
         identation = -identation;
       }
       const [updatedCode, spacesAdded] = indentText(
-        targetElement.value,
+        this.props.code,
         selectionStart,
         identation
       );
 
       this.props.onCodeUpdate(updatedCode);
-      console.log(updatedCode);
       requestAnimationFrame(() =>
         targetElement.setSelectionRange(
           selectionStart + spacesAdded,

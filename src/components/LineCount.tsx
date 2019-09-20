@@ -1,8 +1,8 @@
-import React from "react";
-import "./LineCount.scss";
+import React from 'react';
+import './LineCount.scss';
 
 type IProps = {
-  lines: number;
+  lines: number,
 };
 const LineCount: React.FC<IProps> = props => (
   <ul className="LineCount-lines">

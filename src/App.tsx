@@ -8,6 +8,7 @@ type IProps = {};
 interface IState {
   code: string;
   output: string;
+  error: boolean;
 }
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -15,6 +16,7 @@ class App extends React.Component<IProps, IState> {
     this.state = {
       code: '',
       output: '',
+      error: false,
     };
   }
   updateCode(newCode: string) {
@@ -22,11 +24,28 @@ class App extends React.Component<IProps, IState> {
       code: newCode,
     });
   }
-  compile() {
-    axios
-      .post('http://localhost:8080/execute', this.state.code)
-      .then(response => this.setState({output: response.data}))
-      .catch(error => console.error(error.data));
+  async compile() {
+    try {
+      let response = await axios.post(
+        'http://localhost:8080/execute',
+        this.state.code,
+      );
+      this.setState({
+        output: `> ${response.data}`,
+        error: false,
+      });
+    } catch (error) {
+      let errorMessage = '';
+      if (!error.response) {
+        errorMessage = `Connection to the server refused`;
+      } else {
+        errorMessage = error.response.data;
+      }
+      this.setState({
+        output: `> ${errorMessage}`,
+        error: true,
+      });
+    }
   }
   render() {
     return (
@@ -52,7 +71,11 @@ class App extends React.Component<IProps, IState> {
           Run
         </button>
         <h2 className="h2 mb-0">Stdout:</h2>
-        <code className="terminal-font">{this.state.output}</code>
+        {this.state.error ? (
+          <code className="terminal-font error">{this.state.output}</code>
+        ) : (
+          <code className="terminal-font">{this.state.output}</code>
+        )}
       </div>
     );
   }
