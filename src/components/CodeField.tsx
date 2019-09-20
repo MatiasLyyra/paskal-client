@@ -5,33 +5,25 @@ import "./CodeField.scss";
 
 export type IProps = {
   indentation: number;
-};
-export interface IState {
+  onCodeUpdate(newCode: string): void;
   code: string;
-  rows: number;
-}
+};
+const TAB_KEY_CODE = 9;
 
-export class CodeField extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      code: "",
-      rows: 5
-    };
-  }
+export class CodeField extends React.PureComponent<IProps> {
   render() {
     return (
       <div className="CodeField">
         <div className="CodeField-LineCount terminal-font">
-          <LineCount lines={this.calcRows(this.state.code)} />
+          <LineCount lines={this.calcRows(this.props.code)} />
         </div>
         <textarea
           id="rawCode"
           className="CodeField-code terminal-font"
-          onChange={e => this.setState({ code: e.target.value })}
+          onChange={this.updateCode.bind(this)}
           onKeyDown={this.indentIfTab.bind(this)}
-          rows={Math.max(this.calcRows(this.state.code), 5)}
-          value={this.state.code}
+          rows={Math.max(this.calcRows(this.props.code), 5)}
+          value={this.props.code}
           autoCapitalize="false"
           autoComplete="false"
           autoCorrect="false"
@@ -40,29 +32,29 @@ export class CodeField extends React.Component<IProps, IState> {
       </div>
     );
   }
-
+  updateCode(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    this.props.onCodeUpdate(e.target.value)
+  }
   calcRows(text: string): number {
     return text.split("").filter(c => c === "\n").length + 1;
   }
   indentIfTab(event: KeyboardEvent<HTMLTextAreaElement>) {
-    // keyCode 9 is tab
     const targetElement = event.target as HTMLTextAreaElement;
     const selectionStart = targetElement.selectionStart;
     let identation = this.props.indentation;
-    if (event.keyCode === 9) {
+    if (event.keyCode === TAB_KEY_CODE) {
       event.preventDefault();
       if (event.getModifierState("Shift")) {
         identation = -identation;
       }
-      console.log(identation);
-      let [updatedCode, spacesAdded] = indentText(
-        this.state.code,
+      const [updatedCode, spacesAdded] = indentText(
+        targetElement.value,
         selectionStart,
         identation
       );
-      this.setState({
-        code: updatedCode
-      });
+
+      this.props.onCodeUpdate(updatedCode);
+      console.log(updatedCode);
       requestAnimationFrame(() =>
         targetElement.setSelectionRange(
           selectionStart + spacesAdded,

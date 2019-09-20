@@ -6,15 +6,16 @@ describe("CodeField text area", () => {
   let wrapper: ShallowWrapper;
   let instance: CodeField;
   let textArea: ShallowWrapper;
-  const indentation = 2;
+  let mockUpdate: jest.Mock;
   beforeEach(() => {
-    wrapper = shallow(<CodeField indentation={indentation}></CodeField>);
+    mockUpdate = jest.fn();
+    wrapper = shallow(<CodeField onCodeUpdate={mockUpdate} code="" indentation={2}></CodeField>);
     instance = wrapper.instance() as CodeField;
     textArea = wrapper.find("#rawCode");
   });
   it("updates code", () => {
     textArea.simulate("change", { target: { value: "foobar\n123" } });
-    expect(instance.state.code).toBe("foobar\n123");
+    expect(mockUpdate).toHaveBeenLastCalledWith("foobar\n123")
     expect(wrapper).toMatchSnapshot();
   });
 });

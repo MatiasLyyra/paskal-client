@@ -8,7 +8,7 @@ exports[`CodeField text area updates code 1`] = `
     className="CodeField-LineCount terminal-font"
   >
     <LineCount
-      lines={2}
+      lines={1}
     />
   </div>
   <textarea
@@ -21,8 +21,7 @@ exports[`CodeField text area updates code 1`] = `
     onKeyDown={[Function]}
     rows={5}
     spellCheck={false}
-    value="foobar
-123"
+    value=""
   />
 </div>
 `;
