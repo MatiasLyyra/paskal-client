@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![CircleCI](https://circleci.com/gh/MatiasLyyra/paskal-client.svg?style=svg)](https://circleci.com/gh/MatiasLyyra/paskal-client)
+
+# Paskal-client
+
+This repo provides way to compile Paskal scripts from your browser. The compiler itself can be found at https://github.com/MatiasLyyra/paskal
 
 ## Available Scripts
 
