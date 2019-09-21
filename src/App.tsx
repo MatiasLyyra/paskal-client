@@ -10,11 +10,30 @@ interface IState {
   output: string;
   error: boolean;
 }
+
 class App extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      code: '',
+      code: `program main;
+// Feel free to edit
+var x,y : integer;
+function GCD(x,y: integer): integer
+begin
+  if y is 0 then
+    gcd := x;
+  else
+    gcd := GCD(y, x % y);
+end
+
+begin
+  x := 42;
+  y := 12;
+  printf(
+    "GCD(%d, %d) = %d",
+    x, y, GCD(x,y)
+  )
+end`,
       output: '',
       error: false,
     };
@@ -27,7 +46,7 @@ class App extends React.Component<IProps, IState> {
   async compile() {
     try {
       let response = await axios.post(
-        'http://localhost:8080/execute',
+        `${process.env.REACT_APP_API_URL}/execute`,
         this.state.code,
       );
       this.setState({
@@ -50,7 +69,7 @@ class App extends React.Component<IProps, IState> {
   render() {
     return (
       <div className="App">
-        <h1 className="h1 center">Paskal compiler</h1>
+        <h1 className="h1 center mt-2 mb-2">Paskal compiler</h1>
         <p>
           Fork{' '}
           <a
@@ -61,16 +80,18 @@ class App extends React.Component<IProps, IState> {
           </a>{' '}
           on github
         </p>
-        <h2 className="h2 mb-0">Editor:</h2>
+        <h2 className="h2 mb-1 mt-1">Editor:</h2>
         <CodeField
           code={this.state.code}
           onCodeUpdate={this.updateCode.bind(this)}
           indentation={2}
         />
-        <button onClick={this.compile.bind(this)} className="terminal-font">
+        <button
+          onClick={this.compile.bind(this)}
+          className="terminal-font mt-1 ">
           Run
         </button>
-        <h2 className="h2 mb-0">Stdout:</h2>
+        <h2 className="h2 mb-1 mt-2">Stdout:</h2>
         {this.state.error ? (
           <code className="terminal-font error">{this.state.output}</code>
         ) : (

@@ -4,5 +4,7 @@
   "parser": "flow",
   "printWidth": 80,
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "endOfLine": "lf"
 }

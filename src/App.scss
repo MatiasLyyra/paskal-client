@@ -1,21 +1,21 @@
 @import "./assets/color";
 
 button {
-    border: 2px $terminal-green solid;
-    background-color: $black;
-    color: $terminal-green;
-    padding: 1rem;
-    outline: none;
+  border: 2px $terminal-green solid;
+  background-color: $black;
+  color: $terminal-green;
+  padding: 1rem;
+  outline: none;
 
-    &:active {
-        color: $amber;
-        border: 2px $amber solid;
-    }
+  &:active {
+    color: $amber;
+    border: 2px $amber solid;
+  }
 }
 
 code {
-    display: block;
-    border: 2px $terminal-green solid;
-    min-height: 3rem;
-    padding: 1rem;
+  display: block;
+  border: 2px $terminal-green solid;
+  min-height: 3rem;
+  padding: 1rem;
 }
