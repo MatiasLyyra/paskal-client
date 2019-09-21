@@ -5,6 +5,8 @@
 
 This repo provides way to compile Paskal scripts from your browser. The compiler itself can be found at https://github.com/MatiasLyyra/paskal
 
+Live demo of the client can be found at: https://matiaslyyra.github.io/paskal-client/
+
 ## Available Scripts
 
 In the project directory, you can run:
