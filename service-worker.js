@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/paskal-client/precache-manifest.e4900743056c717f879704944597616a.js"
+  "/paskal-client/precache-manifest.794bb828ee630a512ec39f850dc926bc.js"
 );
 
 self.addEventListener('message', (event) => {
