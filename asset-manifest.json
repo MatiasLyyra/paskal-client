@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/paskal-client/static/css/main.a8fb295d.chunk.css",
-    "main.js": "/paskal-client/static/js/main.855de48d.chunk.js",
-    "main.js.map": "/paskal-client/static/js/main.855de48d.chunk.js.map",
+    "main.js": "/paskal-client/static/js/main.1b0abc30.chunk.js",
+    "main.js.map": "/paskal-client/static/js/main.1b0abc30.chunk.js.map",
     "runtime~main.js": "/paskal-client/static/js/runtime~main.af9225bf.js",
     "runtime~main.js.map": "/paskal-client/static/js/runtime~main.af9225bf.js.map",
     "static/js/2.a56402d6.chunk.js": "/paskal-client/static/js/2.a56402d6.chunk.js",
     "static/js/2.a56402d6.chunk.js.map": "/paskal-client/static/js/2.a56402d6.chunk.js.map",
     "index.html": "/paskal-client/index.html",
-    "precache-manifest.1226ce50d11dd33f20c59f29889ecac8.js": "/paskal-client/precache-manifest.1226ce50d11dd33f20c59f29889ecac8.js",
+    "precache-manifest.e0c5aaadcfe44497997da95e1b00694a.js": "/paskal-client/precache-manifest.e0c5aaadcfe44497997da95e1b00694a.js",
     "service-worker.js": "/paskal-client/service-worker.js",
     "static/css/main.a8fb295d.chunk.css.map": "/paskal-client/static/css/main.a8fb295d.chunk.css.map"
   }

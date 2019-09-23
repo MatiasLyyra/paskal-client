@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0b3ec17f30b88842510796fcb22715b4",
+    "revision": "6d7d58227e2783ead1bb1375e869537f",
     "url": "/paskal-client/index.html"
   },
   {
-    "revision": "c4553bc0b08a1a55c4ee",
+    "revision": "a15dd83631fe6fc80877",
     "url": "/paskal-client/static/css/main.a8fb295d.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/paskal-client/static/js/2.a56402d6.chunk.js"
   },
   {
-    "revision": "c4553bc0b08a1a55c4ee",
-    "url": "/paskal-client/static/js/main.855de48d.chunk.js"
+    "revision": "a15dd83631fe6fc80877",
+    "url": "/paskal-client/static/js/main.1b0abc30.chunk.js"
   },
   {
     "revision": "ca676784a9c9817169bc",
